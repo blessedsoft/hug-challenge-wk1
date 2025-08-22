@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olajide Salami | About Me</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            margin: 0.5rem 0;
+        }
+        section {
+            padding: 2rem 1rem;
+            max-width: 900px;
+            margin: auto;
+        }
+        h2 {
+            color: #444;
+            margin-bottom: 1rem;
+        }
+        .about p {
+            font-size: 1.1rem;
+        }
+        .skill-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+        }
+        .blue { background: #2196f3; }
+        .orange { background: #ff9800; }
+        .purple { background: #9c27b0; }
+        .green { background: #4caf50; }
+        .pink { background: #e91e63; }
+        .red { background: #f44336; }
+        .interests ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.2rem;
+        }
+        .project-list {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        .project-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .contact a {
+            color: #ffeb3b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #eee;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Olajide Sulaimon Salami</h1>
+        <p>Cloud & DevOps Engineer</p>
+        <p>Email: <a href="mailto:olajidesolomon11@gmail.com">olajidesolomon11@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/olajide-salami" target="_blank">linkedin.com/in/olajide-salami</a></p>
+    </header>
+
+    <section class="about">
+        <h2>About Me</h2>
+        <p>
+            With over 4 years of experience designing secure, scalable, and reliable IT solutions,
+            I specialize in system administration, cloud platforms, and DevOps automation.  
+            I love building efficient systems, solving complex problems, and exploring innovative technologies.
+        </p>
+    </section>
+
+    <section class="skills">
+        <h2>Skills</h2>
+        <div class="skill-badges">
+            <span class="badge blue">AWS</span>
+            <span class="badge orange">Azure</span>
+            <span class="badge purple">Terraform</span>
+            <span class="badge green">Linux</span>
+            <span class="badge pink">Docker</span>
+            <span class="badge red">Kubernetes</span>
+        </div>
+    </section>
+
+    <section class="interests">
+        <h2>Interests</h2>
+        <ul>
+            <li>💻 Coding</li>
+            <li>📈 Financial Markets</li>
+            <li>✈️ Travelling</li>
+            <li>🎵 Music</li>
+        </ul>
+    </section>
+
+    <section class="projects">
+        <h2>Projects</h2>
+        <div class="project-list">
+            <div class="project-card">
+                <h3>Hybrid Identity Model</h3>
+                <p>Integrated on-premises AD with Azure AD for better scalability and disaster recovery readiness.</p>
+            </div>
+            <div class="project-card">
+                <h3>Cloud Migration</h3>
+                <p>Planned and migrated enterprise workloads to Azure, maintaining uptime and data integrity.</p>
+            </div>
+            <div class="project-card">
+                <h3>Infrastructure Automation</h3>
+                <p>Automated AWS infrastructure provisioning using Terraform, improving deployment speed.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Olajide Sulaimon Salami</p>
+    </footer>
+</body>
+</html>
