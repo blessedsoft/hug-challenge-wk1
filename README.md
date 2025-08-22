@@ -43,6 +43,7 @@
 
 📁 Project structure
 --------------------
+
 hug-challenge-wk1/
 ├── site/
 │ ├── index.html
@@ -61,5 +62,6 @@ hug-challenge-wk1/
 
 📁 Project Documentation
 --------------------
+
 Kindly check the documentation here: https://www.notion.so/How-to-Deploy-a-Static-Site-to-Netlify-with-Terraform-HCP-Remote-State-25773770dae980219202e7a635965055?source=copy_link
 
