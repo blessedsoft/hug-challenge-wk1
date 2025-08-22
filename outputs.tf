@@ -1,15 +1,9 @@
-output "site_name" {
-  value       = netlify_site.this.name
-  description = "Netlify site name (subdomain)"
-}
-
 output "site_url" {
-  value       = netlify_site.this.url
-  description = "Live Netlify site URL"
+  description = "The live URL of the Netlify site"
+  value       = "https://${var.site_name}.netlify.app"
 }
 
-output "deploy_key_public" {
-  value       = netlify_deploy_key.this.public_key
-  description = "Public key for GitHub Deploy Keys (read-only)"
-  sensitive   = true
+output "site_id" {
+  description = "The Netlify site identifier"
+  value       = var.site_name
 }
