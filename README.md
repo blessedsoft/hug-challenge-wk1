@@ -1,4 +1,4 @@
-**Deploying a Static Site to Netlify with Terraform + HCP Remote State** 
+**Deploying a Static Site to Netlify with Terraform + HCP Remote State**————————————————————————————————————
 
 🔎 What you’ll build
 --------------------
