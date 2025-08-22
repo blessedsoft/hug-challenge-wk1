@@ -1,251 +1,210 @@
-# A beginner-friendly guide to implement this project **(HUG-Challenge-Week-1)**
+**Deploying a Static Site to Netlify with Terraform + HCP Remote State** 
 
-**Olajide Salami**  ∙  **August 22, 2025**  ∙  5 **min read**  ∙  *View on Notion*
+🔎 What you’ll build
+--------------------
 
----
+*   A minimal static website served on **Netlify**.
+    
+*   Infrastructure managed by **Terraform**.
+    
+*   **Remote state** stored in **HCP Terraform (Terraform Cloud)**.
+    
+*   A reproducible workflow your teammates can run on any machine.
+    
 
-## 🔎 What you’ll build
+✅ Prerequisites
+---------------
 
-- A minimal static website served on **Netlify**.
-- Infrastructure managed by **Terraform**.
-- **Remote state** stored in **HCP Terraform (Terraform Cloud)**.
-- A reproducible workflow your teammates can run on any machine.
-
----
-
-## ✅ Prerequisites
-
-- [ ]  **Terraform** v1.5+ installed (Windows/macOS/Linux)  
-- [ ]  **HCP Terraform** (Terraform Cloud) account + **Organization**  
-- [ ]  Terraform Cloud **Workspace** (e.g., `hug-challenge-wk1`)  
-- [ ]  **Netlify** account + **Personal Access Token (PAT)`  
-- [ ]  **GitHub** account + an empty repo for this project  
+*   \[ \] **Terraform** v1.5+ installed (Windows/macOS/Linux)
+    
+*   \[ \] **HCP Terraform** (Terraform Cloud) account + **Organization**
+    
+*   \[ \] Terraform Cloud **Workspace** (e.g., hug-challenge-wk1)
+    
+*   \[ \] **Netlify** account + **Personal Access Token (PAT)**
+    
+*   \[ \] **GitHub** account + an empty repo for this project
+    
 
 > Tip: Keep a browser tab open for Netlify and one for Terraform Cloud while following this guide.
 
----
+🗺️ Architecture at a glance
+----------------------------
 
-## 🗺️ Architecture at a glance
+*   You commit site code + Terraform files to **GitHub**.
+    
+*   Terraform runs with **remote state** in **HCP Terraform**.
+    
+*   Terraform creates/configures a **Netlify** site connected to your repo.
+    
+*   Netlify serves the content in your repo’s site/ folder.
+    
 
-- You commit site code + Terraform files to **GitHub**.  
-- Terraform runs with **remote state** in **HCP Terraform**.  
-- Terraform creates/configures a **Netlify** site connected to your repo.  
-- Netlify serves the content in your repo’s `site/` folder.  
+📁 Project structure
+--------------------
 
-![Architecture Diagram](architecture.png)
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   hug-challenge-wk1/  ├── site/  │   ├── index.html  │   ├── style.css (optional)  │   ├── images/   (optional)  │   ├── js/       (optional)  │   └── css/      (optional)  ├── main.tf  ├── variables.tf  ├── outputs.tf  ├── versions.tf  ├── providers.tf  ├── .gitignore  └── README.md (optional)   `
 
----
+🧰 Step 1: Install Terraform (once)
+-----------------------------------
 
-## 📁 Project structure
-hug-challenge-wk1/
-├── site/
-│ ├── index.html
-│ ├── style.css (optional)
-│ ├── images/ (optional)
-│ ├── js/ (optional)
-│ └── css/ (optional)
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── versions.tf
-├── providers.tf
-├── .gitignore
-└── README.md
-
-
----
-
-## 🧰 Step 1: Install Terraform (once)
-
-**macOS (Homebrew):**
-
-```bash
-brew tap hashicorp/tap
-brew install hashicorp/tap/terraform
-terraform -v
-
-
-Windows (PowerShell + Chocolatey):
-
-choco install terraform
-terraform -v
-
-
-Ubuntu/Debian:
-
-sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update && sudo apt install -y terraform
-terraform -v
+*   brew tap hashicorp/tapbrew install hashicorp/tap/terraformterraform -v
+    
+*   choco install terraformterraform -v
+    
+*   sudo apt-get update && sudo apt-get install -y gnupg software-properties-commonwget -O- | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/nullecho "deb \[signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg\] $(lsb\_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.listsudo apt update && sudo apt install -y terraformterraform -v
+    
 
 🧱 Step 2: Create accounts & tokens
+-----------------------------------
 
-Netlify → Create a Personal Access Token (PAT).
+1.  **Netlify** → Create a **Personal Access Token** (PAT).
+    
+    *   Copy the PAT. You’ll use it once in Terraform Cloud as an **Environment Variable** called NETLIFY\_TOKEN.
+        
+2.  **HCP Terraform** (Terraform Cloud) → Make sure you have:
+    
+    *   An **Organization** (e.g., My-Org).
+        
+    *   A **Workspace** (e.g., hug-challenge-wk1).
+        
 
-Add to Terraform Cloud Workspace → Variables as:
-
-Key: NETLIFY_TOKEN
-
-Value: your token
-
-Sensitive: ✅
-
-HCP Terraform (Terraform Cloud) → Make sure you have:
-
-An Organization (e.g., My-Org)
-
-A Workspace (e.g., hug-challenge-wk1)
+> Please note that the Netlify provider reads the token from NETLIFY\_TOKEN (exact spelling). Do NOT name it netlify\_api\_token.
 
 🗃️ Step 3: Create the repo & files
+-----------------------------------
 
-Make a public GitHub repo, e.g. https://github.com/blessedsoft/hug-challenge-wk1.git
+Create a new **public** GitHub repo e.g. [https://github.com/blessedsoft/hug-challenge-wk1.git](https://github.com/blessedsoft/hug-challenge-wk1.git) (private also works; see the Deploy Key note in Step 8).
 
-Clone locally and add the files below.
+Clone it locally and add the files below.
 
-.gitignore
-# Terraform
-.terraform/
-.terraform.lock.hcl
-terraform.tfstate
-terraform.tfstate.backup
-crash.log
+### .gitignore
 
-# Local
-.DS_Store
-.env
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   # Terraform  .terraform/  .terraform.lock.hcl  terraform.tfstate  terraform.tfstate.backup  crash.log  override.tf  override.tf.json  *_override.tf  *_override.tf.json  # OS / local  .DS_Store  .env   `
 
-site/index.html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>HUG Challenge Week 1: Deployed with Terraform ✨ Netlify ✨ HCP</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>body{font:16px/1.5 system-ui;margin:2rem;max-width:48rem}</style>
-  </head>
-  <body>
-    <h1>It works! 🎉</h1>
-    <p>This site was deployed to Netlify via Terraform with remote state in HCP Terraform.</p>
-    <p>Edit <code>site/index.html</code>, commit, and re-apply to see changes.</p>
-  </body>
-</html>
+### site/index.html
 
-versions.tf
-terraform {
-  required_version = ">= 1.5.0"
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML          ``HUG Challenge Week 1: Deployed with Terraform ✨ Netlify ✨ HCP            body{font:16px/1.5 system-ui;margin:2rem;max-width:48rem}        It works! 🎉 ============        This site was deployed to Netlify via Terraform with remote state in HCP Terraform.        Edit `site/index.html`, commit, and re-apply to see changes.``  
 
-  required_providers {
-    netlify = {
-      source  = "netlify/netlify"
-      version = "0.2.3"
-    }
-  }
+### versions.tf
 
-  cloud {
-    organization = "My-Org" # Your Terraform Cloud org
-    workspaces {
-      name = "hug-challenge-wk1" # Your workspace
-    }
-  }
-}
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   terraform {    required_version = ">= 1.5.0"    required_providers {      netlify = {        source  = "netlify/netlify"        version = "0.2.3"      }    }    cloud {      organization = "My-Org"  # Your Terraform Cloud org      workspaces {        name = "my-static-website"   # Your Terraform Cloud workspace      }    }  }   `
 
-variables.tf
-variable "site_name" {
-  description = "Netlify site subdomain"
-  type        = string
-  default     = "hug-challenge-wk1"
-}
+### variables.tf
 
-main.tf
-provider "netlify" {
-  # token comes from NETLIFY_TOKEN env var
-}
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   variable "site_name" {    description = "Netlify site subdomain"    type        = string    default     = "hug-challenge-wk1"  # Change to match your Netlify site  }   `
 
-outputs.tf
-output "site_url" {
-  description = "The live URL of the Netlify site"
-  value       = "https://${var.site_name}.netlify.app"
-}
+### main.tf
 
-output "site_id" {
-  description = "The Netlify site identifier"
-  value       = var.site_name
-}
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   provider "netlify" {  #  token = var.netlify_api_token  }   `
 
+### outputs.tf
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   output "site_url" {    description = "The live URL of the Netlify site"    value       = "{var.site_name}.netlify.app"  }  output "site_id" {    description = "The Netlify site identifier"    value       = var.site_name  }   `
 
 Commit & push:
 
-git add .
-git commit -m "Initial project setup with Terraform + Netlify"
-git push origin main
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   git add .  git commit -m "My static website using Terraform + Netlify project"  git push origin main   `
 
-☁️ Step 4: Configure Terraform Cloud workspace
+☁️ Step 4: Configure the Terraform Cloud workspace
+--------------------------------------------------
 
-Open Terraform Cloud → Org → Workspace → Variables
+Open **Terraform Cloud → Organization: Media-Fi-Digitals → Workspace: hug-challenge-wk1** (or your chosen name) → **Variables**.
 
-Add Environment variable:
+### Environment Variables (used by the Netlify provider)
 
-Key: NETLIFY_TOKEN
-Value: <your PAT>
-Sensitive: true
+*   **Key:** NETLIFY\_TOKEN → **Value:** _your Netlify PAT_ → **Sensitive:** ON
+    
 
-🏃 Step 5: Run Terraform
+> Do not store the token as a Terraform variable. Keep it as an environment variable (NETLIFY\_TOKEN).
 
-Authenticate once:
+🏃 Step 5: Run Terraform (CLI‑driven remote run)
+------------------------------------------------
 
-terraform login
+This style runs the plan/apply in Terraform Cloud but streams logs to your terminal. Perfect for collaboration + screenshots.
 
+From your project root (where the .tf files live):
 
-Initialize:
+1.  Authenticate the CLI with Terraform Cloud (one time):
+    
 
-terraform init -upgrade
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   terraform login   `
 
+1.  Initialize:
+    
 
-Plan:
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   terraform init -upgrade   `
 
-terraform plan
+1.  Plan:
+    
 
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   # If you set Terraform variables in the workspace, this is enough:  terraform plan  # Otherwise pass them explicitly:  # terraform plan \\  #   -var team_slug="YOUR_TEAM_SLUG" \\  #   -var repo_path="My-Org/Hug-challenge-wk1"   `
 
-Apply:
+1.  Apply:
+    
 
-terraform apply
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   terraform apply   `
 
+During the run you’ll see a link to the live run page in Terraform Cloud. **Take a screenshot of the successful apply** for the challenge deliverable.
 
-Take a screenshot of successful apply ✅
+> **Private repo?** Copy the deploy\_key\_public output and add it to GitHub → Repo → Settings → Deploy keys → Add deploy key (read‑only). Then push any commit to main to trigger Netlify’s first build.
 
-🌐 Step 6: Verify Netlify
+🌐 Step 6: Verify Netlify settings (first deploy)
+-------------------------------------------------
 
-Go to Netlify → Sites → hug-challenge-wk1 → Settings → Build & deploy:
+Open **Netlify → Sites → Your site (hug-challenge-wk1) → Site configuration → Build & deploy** and verify:
 
-Branch: main
+*   **Branch to deploy:** main
+    
+*   **Base directory:** site (so Netlify looks inside your site/ folder)
+    
+*   **Build command:** _(empty, because it’s static HTML/CSS)_
+    
+*   **Publish directory:** site (that’s where index.html lives)
+    
 
-Base directory: site
+> If you prefer using the UI first: you can set these fields when Netlify initially prompts you to “Deploy your project”. They match exactly what Terraform configured in the repo {} block.
 
-Publish directory: site
+Push a small change to site/index.html → Netlify will auto‑deploy → open your site\_url from Terraform outputs. 🎉
 
-Push a change to site/index.html → Netlify will auto-deploy 🚀
+🧹 Step 7: Clean up (optional)
+------------------------------
 
-🧹 Step 7: Clean up
-terraform destroy
+To remove all Netlify resources created by Terraform (but keep your repo):
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   terraform destroy   `
 
 🧩 Troubleshooting
+------------------
 
-Netlify 404? → Ensure site/index.html exists and repo is connected.
+**Site shows Netlify 404 (Site not found):**
 
-Missing NETLIFY_TOKEN? → Add it as env var in Terraform Cloud.
+*   Terraform created the site, but Netlify hasn’t deployed content yet. Ensure your repo has site/index.html, the repo is reachable (Deploy Key added if private), and a commit has been pushed to main.
+    
 
-Workspace mismatch? → Fix organization + workspace names in versions.tf.
+**Error: No value for required variable netlify\_api\_token:**
 
-📚 Quick reference
-terraform login
-terraform init -upgrade
-terraform plan
-terraform apply
-terraform destroy
+*   Remove that variable from your code. The provider uses NETTIFY\_TOKEN env var instead. Alternatively wire token = var.netlify\_api\_token in the provider and set it as a **Terraform** variable (less recommended).
+    
 
+**Reference to undeclared resource (e.g., netlify\_site.site):**
 
-✅ Done! Your site is live via Netlify, managed with Terraform, and state stored in HCP Terraform.
+*   Match names exactly. If your resource is netlify\_site.this, reference netlify\_site.this.url in outputs.
+    
 
+**Workspace mismatch:**
 
-Would you like me to also **add the screenshot placeholders** (like `![terraform-apply.png]`) into this markdown so you can just drop your actual screenshots into the repo later?
+*   Ensure versions.tf has your **exact** organization and workspace names.
+    
+
+**Local execution vs Remote runs:**
+
+*   In **Local** execution mode, Terraform Cloud does **not** inject workspace env vars; set export NETLIFY\_TOKEN=... locally. In **Remote (CLI‑driven)** mode, workspace env vars are available to your runs.
+    
+
+📚 Quick reference commands
+---------------------------
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   # Authenticate Terraform CLI with Terraform Cloud  terraform login  # Initialize providers & set up remote state linkage  terraform init -upgrade  # See the execution plan  terraform plan  # Create/update resources  terraform apply  # Remove resources  terraform destroy   `
+
+> You’re done! Your team can clone, set NETLIFY\_TOKEN in the workspace, and run the same steps to reproduce the site anytime.
