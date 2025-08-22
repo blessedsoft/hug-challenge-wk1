@@ -1,86 +1,65 @@
+**Deploying a Static Site to Netlify with Terraform + HCP Remote State**————————————————————————————————————
 
-HUG-Fashion-Websites Terraform + Netlify Deployment
-Overview
+🔎 What you’ll build
+--------------------
 
-This project demonstrates how to deploy a static website on Netlify using Terraform, with Terraform Cloud (HCP) remote state.
+*   A minimal static website served on **Netlify**.
+    
+*   Infrastructure managed by **Terraform**.
+    
+*   **Remote state** stored in **HCP Terraform (Terraform Cloud)**.
+    
+*   A reproducible workflow your teammates can run on any machine.
+    
 
-The setup is fully reproducible — anyone can clone the repo, set their token, and deploy the site.
+✅ Prerequisites
+---------------
 
-The static site is minimal but fully functional, using HTML, CSS, and JS in the site/ folder.
+*   \[ \] **Terraform** v1.5+ installed (Windows/macOS/Linux)
+    
+*   \[ \] **HCP Terraform** (Terraform Cloud) account + **Organization**
+    
+*   \[ \] Terraform Cloud **Workspace** (e.g., hug-challenge-wk1)
+    
+*   \[ \] **Netlify** account + **Personal Access Token (PAT)**
+    
+*   \[ \] **GitHub** account + an empty repo for this project
+    
 
+> Tip: Keep a browser tab open for Netlify and one for Terraform Cloud while following this guide.
 
+🗺️ Architecture at a glance
+----------------------------
 
-## 📂 Project Structure
+*   You commit site code + Terraform files to **GitHub**.
+    
+*   Terraform runs with **remote state** in **HCP Terraform**.
+    
+*   Terraform creates/configures a **Netlify** site connected to your repo.
+    
+*   Netlify serves the content in your repo’s site/ folder.
 
-```plaintext
-HUG-Fashion-Websites/
+<img width="1536" height="1024" alt="ChatGPT Image Aug 22, 2025, 01_54_17 PM" src="https://github.com/user-attachments/assets/0831b8c6-1d2c-4663-a903-21b2ae91aa54" />    
+
+📁 Project structure
+--------------------
+hug-challenge-wk1/
 ├── site/
-│   ├── index.html
-│   ├── style.css
-│   ├── images/
-│   ├── js/
-│   └── css/
+│ ├── index.html
+│ ├── style.css (optional)
+│ ├── images/ (optional)
+│ ├── js/ (optional)
+│ └── css/ (optional)
 ├── main.tf
 ├── variables.tf
 ├── outputs.tf
 ├── versions.tf
+├── providers.tf
 ├── .gitignore
-├── README.md
-└── netlify-arch.png
+└── README.md
 
 
-Prerequisites:
+📁 Project Documentation
+--------------------
 
-Terraform ≥ 1.5.0
-
-Terraform Cloud account
-
-Workspace: hug-fashion-websites
-
-Netlify account
-
-Personal access token (keep it secret)
-
-GitHub repository
-
-Linked to Netlify for automatic deployment
-
-
-
-``` Terraform Cloud Setup:
-
-Navigate to your Terraform Cloud workspace: hug-fashion-websites
-
-Go to Variables → Environment Variables.
-
-Add the following:
-
-Key	                 Value	                Sensitive
-netlify_api_token	<your Netlify token>	✅ Yes
-
-Terraform Cloud will automatically use this token during runs.
-
-
-``` Netlify Configuration
-
-Base directory: leave empty
-
-Publish directory: site/
-
-Build command: leave empty (static site)
-
-Functions directory: leave default
-
-Push changes to your GitHub repo — Netlify will automatically build and deploy your site.
-
-this push to github is one step, but the challenge said we should your apply screenshot so with the 
-
-push to github and pipeline automating deployment means your workspace is set to remote state (VCS)
-
-so advice your set your workspace to cli execution mode. with this you, you run your terraform init, 
-
-terraform plan, and terraform apply from local cli.
-
-Note: to use local cli, your will have create an API token in terraform cloud, and run terraform login 
-
-to link both local cli to terraform cloud.
+Kindly check the documentation here: https://www.notion.so/How-to-Deploy-a-Static-Site-to-Netlify-with-Terraform-HCP-Remote-State-25773770dae980219202e7a635965055?source=copy_link
