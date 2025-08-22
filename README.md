@@ -39,9 +39,7 @@
     
 *   Netlify serves the content in your repo’s site/ folder.
 
-  <img width="1536" height="1024" alt="ChatGPT Image Aug 22, 2025, 01_54_17 PM" src="https://github.com/user-attachments/assets/4c76d8e2-6a66-4032-a00e-f7fa9d9f9ae5" />
-
-    
+<img width="1536" height="1024" alt="ChatGPT Image Aug 22, 2025, 01_54_17 PM" src="https://github.com/user-attachments/assets/0831b8c6-1d2c-4663-a903-21b2ae91aa54" />    
 
 📁 Project structure
 --------------------
@@ -59,8 +57,9 @@ hug-challenge-wk1/
 ├── providers.tf
 ├── .gitignore
 └── README.md
-<img width="1536" height="1024" alt="ChatGPT Image Aug 22, 2025, 01_54_17 PM" src="https://github.com/user-attachments/assets/0831b8c6-1d2c-4663-a903-21b2ae91aa54" />
 
 
+📁 Project Documentation
+--------------------
 Kindly check the documentation here: https://www.notion.so/How-to-Deploy-a-Static-Site-to-Netlify-with-Terraform-HCP-Remote-State-25773770dae980219202e7a635965055?source=copy_link
 
