@@ -1,153 +1,221 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olajide S. Salami | About Me</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-        }
-        header {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            color: white;
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
-        header p {
-            margin: 0.5rem 0;
-        }
-        section {
-            padding: 2rem 1rem;
-            max-width: 900px;
-            margin: auto;
-        }
-        h2 {
-            color: #444;
-            margin-bottom: 1rem;
-        }
-        .about p {
-            font-size: 1.1rem;
-        }
-        .skill-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            color: white;
-            font-weight: bold;
-        }
-        .blue { background: #2196f3; }
-        .orange { background: #ff9800; }
-        .purple { background: #9c27b0; }
-        .green { background: #4caf50; }
-        .pink { background: #e91e63; }
-        .red { background: #f44336; }
-        .interests ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            gap: 1.5rem;
-            font-size: 1.2rem;
-        }
-        .project-list {
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-        .project-card {
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-        .contact a {
-            color: #ffeb3b;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background: #eee;
-            margin-top: 2rem;
-        }
-    </style>
+<!DOCTYPE html><html lang="en"><head>
+	<meta charset="utf-8">
+	<title>Media-Fi Digitals</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+<!--
+
+
+
+http://www.tooplate.com/view/2075-digital-team
+
+-->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/et-line-font.css">
+	<link rel="stylesheet" href="css/nivo-lightbox.css">
+	<link rel="stylesheet" href="css/default.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <header>
-        <h1>Olajide Salami</h1>
-        <p>Cloud & DevOps Engineer</p>
-        <p>Email: <a href="mailto:olajidesolomon11@gmail.com">olajidesolomon11@gmail.com</a></p>
-        <p>LinkedIn: <a href="https://linkedin.com/in/olajide-salami" target="_blank">linkedin.com/in/olajide-salami</a></p>
-    </header>
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-    <section class="about">
-        <h2>About Me</h2>
-        <p>
-            With over 4 years of experience designing secure, scalable, and reliable IT solutions,
-            I specialize in system administration, cloud platforms, and DevOps automation.  
-            I love building efficient systems, solving complex problems, and exploring innovative technologies.
-        </p>
-    </section>
+<!-- preloader section -->
+<div class="preloader">
+	<div class="sk-spinner sk-spinner-circle">
+       <div class="sk-circle1 sk-circle"></div>
+       <div class="sk-circle2 sk-circle"></div>
+       <div class="sk-circle3 sk-circle"></div>
+       <div class="sk-circle4 sk-circle"></div>
+       <div class="sk-circle5 sk-circle"></div>
+       <div class="sk-circle6 sk-circle"></div>
+       <div class="sk-circle7 sk-circle"></div>
+       <div class="sk-circle8 sk-circle"></div>
+       <div class="sk-circle9 sk-circle"></div>
+       <div class="sk-circle10 sk-circle"></div>
+       <div class="sk-circle11 sk-circle"></div>
+       <div class="sk-circle12 sk-circle"></div>
+    </div>
+</div>
 
-    <section class="skills">
-        <h2>Skills</h2>
-        <div class="skill-badges">
-            <span class="badge blue">AWS</span>
-            <span class="badge orange">Azure</span>
-            <span class="badge purple">Terraform</span>
-            <span class="badge green">Linux</span>
-            <span class="badge pink">Docker</span>
-            <span class="badge red">Kubernetes</span>
+<!-- navigation section -->
+<section class="navbar navbar-fixed-top custom-navbar" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+			</button>
+		 <img src="images/logo.png" alt="Company Logo" style="max-width: 150px; margin-bottom: 20px;">
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#home" class="smoothScroll">HOME</a></li>
+				<li><a href="#work" class="smoothScroll">SERVICES</a></li>
+				<li><a href="#about" class="smoothScroll">ABOUT US</a></li>
+				<li><a href="#contact" class="smoothScroll">CONTACT US</a></li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<!-- home section -->
+<section id="home">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 text-center">
+        <h3>IT Solutions</h3>
+        <h1>Seamless Digital Experiences</h1>
+        <p>Your trusted partner for IT as a Service (ITaaS), digital strategy, and creative solutions — designed to help your business grow, scale, and thrive.</p>
+        <hr>
+        <a href="#contact" class="smoothScroll btn btn-danger">Get Started</a>
+        <a href="http://wa.me/2348035318577" class="smoothScroll btn btn-default">Contact Us on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- work section -->
+<section id="work">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="section-title">
+          <h1 class="heading bold">OUR SERVICES</h1>
+          <hr>
         </div>
-    </section>
+      </div>
 
-    <section class="interests">
-        <h2>Interests</h2>
-        <ul>
-            <li>💻 Coding</li>
-            <li>📈 Financial Markets</li>
-            <li>✈️ Travelling</li>
-            <li>🎵 Music</li>
-        </ul>
-    </section>
+      <div class="col-md-4 col-sm-6 wow fadeInUp">
+        <i class="icon-tools medium-icon"></i>
+        <h3>IT as a Service (ITaaS)</h3>
+        <hr>
+        <p>Outsourced IT infrastructure, cloud hosting, and managed support.</p>
+      </div>
 
-    <section class="projects">
-        <h2>Projects</h2>
-        <div class="project-list">
-            <div class="project-card">
-                <h3>Hybrid Identity Model</h3>
-                <p>Integrated on-premises AD with Azure AD for better scalability and disaster recovery readiness.</p>
-            </div>
-            <div class="project-card">
-                <h3>Cloud Migration</h3>
-                <p>Planned and migrated enterprise workloads to Azure, maintaining uptime and data integrity.</p>
-            </div>
-            <div class="project-card">
-                <h3>Infrastructure Automation</h3>
-                <p>Automated AWS infrastructure provisioning using Terraform, improving deployment speed.</p>
-            </div>
+      <div class="col-md-4 col-sm-6 wow fadeInUp">
+        <i class="icon-gears medium-icon"></i>
+        <h3>Software Deployment</h3>
+        <hr>
+        <p>CRMs, ERPs, HR tools, and custom applications tailored to your business.</p>
+      </div>
+
+      <div class="col-md-4 col-sm-6 wow fadeInUp">
+        <i class="icon-browser medium-icon"></i>
+        <h3>Web & E-Commerce</h3>
+        <hr>
+        <p>Fast, responsive websites and online stores that convert.</p>
+      </div>
+
+      <div class="col-md-4 col-sm-6 wow fadeInUp">
+        <i class="icon-lightbulb medium-icon"></i>
+        <h3>Branding & Creatives</h3>
+        <hr>
+        <p>Visual identity, content, graphics, and design to stand out.</p>
+      </div>
+
+      <div class="col-md-4 col-sm-6 wow fadeInUp">
+        <i class="icon-target medium-icon"></i>
+        <h3>Digital Ads & Campaigns</h3>
+        <hr>
+        <p>Lead-focused marketing and smart ad spend management.</p>
+      </div>
+
+      <div class="col-md-4 col-sm-6 wow fadeInUp">
+        <i class="icon-chat medium-icon"></i>
+        <h3>Training & Consultancy</h3>
+        <hr>
+        <p>Strategy, transformation support, and team skill development.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- about section -->
+<section id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 text-center">
+        <div class="section-title">
+          <h1 class="heading bold">ABOUT US</h1>
+          <hr>
         </div>
-    </section>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <img src="images/about-img.jpg" class="img-responsive" alt="about img">
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <h3 class="bold">Media-Fi Digitals</h3>
+        <p>Media-Fi Digitals is a digital consulting and IT services agency helping businesses and professionals embrace smarter technology. We provide end-to-end digital support — from IT infrastructure and cloud services to web development, branding, and lead generation.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>&copy; 2025 Olajide S. Salami</p>
-    </footer>
-</body>
-</html>
+
+
+
+<!-- contact section -->
+<!-- contact section with map background and left-aligned text -->
+<section id="contact" style="position: relative; overflow: hidden; height: 500px;">
+
+  <!-- Google Map as background -->
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d36236.772244701344!2d3.8258340889199114!3d7.361423203120772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10398c4696f9b91b%3A0xf1010bd27084c3b3!2sOluyole%2C%20Ibadan%2C%20Oyo!5e0!3m2!1sen!2sng!4v1751031449198!5m2!1sen!2sng" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; z-index: 1;" allowfullscreen="" loading="lazy"></iframe>
+
+  <!-- Overlay content -->
+  <div class="container" style="position: relative; z-index: 2; height: 100%;">
+    <div class="row h-100 align-items-center">
+      <div class="col-md-6 col-sm-12 text-white" style="background-color: rgba(0,0,0,0.6); padding: 30px; border-radius: 10px;">
+        <div class="section-title">
+          <h1 class="heading bold">CONTACT US</h1>
+          <hr style="border-color: #fff;">
+        </div>
+        <p><strong>Phone:</strong> 08035318577</p>
+        <p><strong>WhatsApp:</strong> <a href="http://wa.me/2348035318577" style="color: #fff; text-decoration: underline;">Click to Chat</a></p>
+        <p><strong>Email:</strong> <a href="mailto:mediafidigitals@gmail.com" style="color: #fff;">info@media-fidigitals.space</a></p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- footer section -->
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+					<ul class="social-icon">
+					<li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.3s"></a></li>
+					<li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.6s"></a></li>
+					<li><a href="#" class="fa fa-tumblr wow fadeIn" data-wow-delay="0.9s"></a></li>
+				</ul>
+				<p>© 2024 Media-Fi Digitals<a href="" target="_parent"></a></p>
+				<hr>
+
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/isotope.js"></script>
+<script src="js/imagesloaded.min.js"></script>
+<script src="js/nivo-lightbox.min.js"></script>
+<script src="js/jquery.backstretch.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+
+</body></html>
