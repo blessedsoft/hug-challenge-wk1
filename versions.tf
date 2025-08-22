@@ -9,9 +9,9 @@ terraform {
   }
 
   cloud {
-    organization = "hug-fashion-web"  # Your Terraform Cloud org
+    organization = "Media-Fi-Digitals"  # Your Terraform Cloud org
     workspaces {
-      name = "hug-fashion-websites"   # Your Terraform Cloud workspace
+      name = "my-static-website"   # Your Terraform Cloud workspace
     }
   }
 }
