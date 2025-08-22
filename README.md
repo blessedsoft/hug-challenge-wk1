@@ -65,3 +65,18 @@ hug-challenge-wk1/
 
 Kindly check the documentation here: https://www.notion.so/How-to-Deploy-a-Static-Site-to-Netlify-with-Terraform-HCP-Remote-State-25773770dae980219202e7a635965055?source=copy_link
 
+
+hug-challenge-wk1/
+├── site/
+│ ├── index.html
+│ ├── style.css (optional)
+│ ├── images/ (optional)
+│ ├── js/ (optional)
+│ └── css/ (optional)
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── versions.tf
+├── providers.tf
+├── .gitignore
+└── README.md
